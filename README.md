@@ -1,4 +1,4 @@
-# توضیحات نمونه کد simple-react-map.zip
+# توضیحات نمونه کد simple-react-map
 
 برای اجرای کد اول npm install و سپس npm run dev را اجرا کنید.
 
