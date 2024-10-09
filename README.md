@@ -1,50 +1,17 @@
-# React + TypeScript + Vite
+# توضیحات نمونه کد simple-react-map.zip
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+برای اجرای کد اول npm install و سپس npm run dev را اجرا کنید.
 
-Currently, two official plugins are available:
+فایل‌های اصلی که توجه نیاز دارند فایل‌های SimpleMap.tsx و utils.ts هستند.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+کتابخانه اصلی که رسم کردن نقشه را به عهده می‌گیرد، کتابخانه maplibre-gl است. این کتابخانه یک فورک Open source از آخرین نسخه ورژن 1 mapbox-gl هستش. به دلیل اینکه از ورژن 2 به بعد mapbox-gl بدون کلید دسترسی که از شرکت mapbox دریافت می‌شود قابل استفاده نیست. به همین دلیل ما از maplibre-gl استفاده می‌کنیم.
 
-## Expanding the ESLint configuration
+در SimpleMap.tsx یک کامپوننت با نام Map در jsx کال شده. توجه داشته باشید که این کامپوننت از آدرس react-map-gl/maplibre ایمپورت شده است (و نه از react-map-gl بدون maplibre)
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+کتابخانه react-map-gl یک wrapper برای کتابخانه(های) mapbox/maplibre جهت استفاده آسان‌تر در react هستش. استفاده مستقیم maplibre هم امکان‌پذیر است اما برای ری‌اکت react-map-gl توصیه می‌شود.
 
-- Configure the top-level `parserOptions` property like this:
+قسمت مربوط به map.ir پراپ های mapStyle و transformRequest هستند.
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+در mapStyle نیاز است آدرس سرویس کاشی نقشه پایه و استایلی که به دیتای کاشی نقشه پایه (در صورتی که نوع کاشی وکتور باشد،) می‌دهیم را تعریف کنیم. در کد تمامی آپشن‌های کاشی نقشه وکتوری و رستری map.ir در فایل utils قرار داده شده.
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+پراپ transformRequest برای ایجاد تغییرات در url یا header درخواست‌هایی که کتابخانه maplibre به سرویس کاشی نقشه می‌زنددمی‌باشد (که در این نمونه کد سرویس map.ir هستش). با استفاده از این پراپ کلید دسترسی map.ir را در header درخواست‌ها با نام x-api-key قرار می‌دهیم. این کلید دسترسی از سایت accounts.map.ir قابل دریافت هستش.
